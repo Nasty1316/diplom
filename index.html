@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Горецкая ДЮСШ - Ледовая арена и спортивные комплексы</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="translations.js"></script>
+</head>
+<body>
+    <!-- Навигация -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2><i class="fas fa-hockey-sticks"></i> <a href="#" class="logo-link" onclick="location.reload(); return false;">ГОРЕЦКАЯ ДЮСШ</a></h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" data-translate="nav-home">Главная</a></li>
+                <li><a href="#about" data-translate="nav-about">О нас</a></li>
+                <li><a href="#services" data-translate="nav-services">Услуги</a></li>
+                <li><a href="#facilities" data-translate="nav-facilities">Объекты</a></li>
+                <li><a href="#news" data-translate="nav-news">Новости</a></li>
+                <li><a href="#gallery" data-translate="nav-gallery">Фотогалерея</a></li>
+                <li><a href="#contacts" data-translate="nav-contacts">Контакты</a></li>
+            </ul>
+            <div class="nav-controls">
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="be">BE</button>
+                </div>
+                <button class="admin-btn" onclick="window.open('admin/login.html', '_blank')" title="Административная панель">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <div class="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Главный экран -->
+    <section id="home" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" data-translate="hero-title">Государственное учебно-спортивное учреждение</h1>
+            <h2 class="hero-subtitle" data-translate="hero-subtitle">"Горецкая детско-юношеская спортивная школа"</h2>
+            <p class="hero-description" data-translate="hero-description">Ледовая арена, спортивные залы, тренажерные залы, конный спорт и многое другое!</p>
+            <div class="hero-buttons">
+                <a href="#facilities" class="btn btn-primary" data-translate="btn-facilities">Наши объекты</a>
+                <a href="#contacts" class="btn btn-secondary" data-translate="btn-contacts">Связаться с нами</a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="floating-card">
+                <i class="fas fa-skating"></i>
+                <span>Ледовая арена</span>
+            </div>
+            <div class="floating-card floating-card-2">
+                <i class="fas fa-football-ball"></i>
+                <span>Спортивные залы</span>
+            </div>
+            <div class="floating-card floating-card-3">
+                <i class="fas fa-dumbbell"></i>
+                <span>Фитнес центр</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- О компании -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>О нашей спортивной школе</h2>
+                <p>Лидер в развитии детского и юношеского спорта в регионе</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Развитие спорта через образование</h3>
+                    <p>Государственное учебно-спортивное учреждение "Горецкая детско-юношеская спортивная школа" - это современный спортивный комплекс, предоставляющий возможности для занятия различными видами спорта для детей и молодежи.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h4>20+</h4>
+                            <p>лет работы</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>1000+</h4>
+                            <p>воспитанников</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>15+</h4>
+                            <p>видов спорта</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-school"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Наши спортивные объекты</h2>
+                <p>Современные комплексы для различных видов спорта</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-ice-hockey"></i>
+                    </div>
+                    <h3>Ледовая арена</h3>
+                    <p>Хоккей, катание на коньках, аренда ледового поля</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-running"></i>
+                    </div>
+                    <h3>Спортивный зал</h3>
+                    <p>Футбол, волейбол, баскетбол и многое другое</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3>Стадион</h3>
+                    <p>Футбольное поле, поле для мини-футбола, теннисный корт</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <h3>Фитнес и тренажерные залы</h3>
+                    <p>Современное оборудование для занятий спортом</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Спортивные объекты с ценами -->
+    <section id="facilities" class="facilities">
+        <div class="container">
+            <div class="section-header">
+                <h2>Наши объекты и услуги</h2>
+                <p>Современные спортивные сооружения с актуальными ценами</p>
+            </div>
+            
+            <div class="facilities-grid">
+                <!-- Ледовая арена -->
+                <div class="facility-card">
+                    <div class="facility-header">
+                        <div class="facility-icon">
+                            <i class="fas fa-ice-hockey"></i>
+                        </div>
+                        <div class="facility-info">
+                            <h3>Ледовая арена</h3>
+                            <p>г. Горки, ул. Вокзальная, 23</p>
+                        </div>
+                    </div>
+                    <div class="facility-description">
+                        <p>Современная ледовая арена для занятий хоккеем, фигурным катанием и массового катания. Профессиональное оборудование и комфортные условия.</p>
+                    </div>
+                    <div class="facility-services">
+                        <h4>Основные услуги:</h4>
+                        <ul>
+                            <li>Массовое катание: взрослые - 4.50 руб., дети - 4.00 руб.</li>
+                            <li>Аренда ледового поля: 220 руб./час, 110 руб./30 мин</li>
+                            <li>Заточка коньков: 5.80 руб./пара</li>
+                            <li>Абонементы на 8/12 посещений</li>
+                            <li>Тренировки по хоккею: 19.00 руб./час</li>
+                        </ul>
+                    </div>
+                    <div class="facility-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Электронное табло</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Раздевалки</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Прокат коньков</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Заточка коньков</span>
+                    </div>
+                </div>
+
+                <!-- Спортивный зал -->
+                <div class="facility-card">
+                    <div class="facility-header">
+                        <div class="facility-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <div class="facility-info">
+                            <h3>Спортивный зал</h3>
+                            <p>г. Горки, ул. Вокзальная, 23</p>
+                        </div>
+                    </div>
+                    <div class="facility-description">
+                        <p>Универсальный зал для игровых видов спорта - баскетбола, волейбола, футбола. Современное покрытие и оборудование.</p>
+                    </div>
+                    <div class="facility-services">
+                        <h4>Основные услуги:</h4>
+                        <ul>
+                            <li>Аренда зала: 75.00 руб./час</li>
+                            <li>Аренда зала: 37.50 руб./30 мин</li>
+                            <li>Баскетбол, волейбол, футбол</li>
+                            <li>Проведение соревнований</li>
+                        </ul>
+                    </div>
+                    <div class="facility-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Современное покрытие</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Инвентарь</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Трибуны</span>
+                    </div>
+                </div>
+
+                <!-- Стадион -->
+                <div class="facility-card">
+                    <div class="facility-header">
+                        <div class="facility-icon">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="facility-info">
+                            <h3>Стадион</h3>
+                            <p>г. Горки, ул. Вокзальная, 21</p>
+                        </div>
+                    </div>
+                    <div class="facility-description">
+                        <p>Открытый стадион с футбольным полем, теннисными кортами и площадками для мини-футбола. Беговые дорожки для тренировок.</p>
+                    </div>
+                    <div class="facility-services">
+                        <h4>Основные услуги:</h4>
+                        <ul>
+                            <li>Футбольное поле: 70.00 руб./час</li>
+                            <li>Половина поля: 37.00 руб./час</li>
+                            <li>Мини-футбол: 27.00 руб./час</li>
+                            <li>Беговые дорожки: 2.60 руб./час</li>
+                            <li>Абонементы на дорожки от 12.50 руб.</li>
+                        </ul>
+                    </div>
+                    <div class="facility-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Искусственный газон</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Теннисные корты</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Беговые дорожки</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Звуковое оборудование</span>
+                    </div>
+                </div>
+
+                <!-- Тренажерный зал -->
+                <div class="facility-card">
+                    <div class="facility-header">
+                        <div class="facility-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="facility-info">
+                            <h3>Тренажерный зал</h3>
+                            <p>г. Горки, ул. Вокзальная, 23</p>
+                        </div>
+                    </div>
+                    <div class="facility-description">
+                        <p>Современный фитнес-центр с профессиональным оборудованием для силовых и кардиотренировок.</p>
+                    </div>
+                    <div class="facility-services">
+                        <h4>Основные услуги:</h4>
+                        <ul>
+                            <li>Фитнес: 6.50 руб./час</li>
+                            <li>Силовая подготовка: 5.50 руб./час</li>
+                            <li>Абонемент фитнес 8/12 раз: 46.80/66.30 руб.</li>
+                            <li>Абонемент сила 8/12 раз: 39.60/56.10 руб.</li>
+                            <li>Коврики для йоги: 1.00 руб./час</li>
+                        </ul>
+                    </div>
+                    <div class="facility-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Кардиотренажеры</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Силовые тренажеры</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Зал йоги</span>
+                    </div>
+                </div>
+
+                <!-- Сауна -->
+                <div class="facility-card">
+                    <div class="facility-header">
+                        <div class="facility-icon">
+                            <i class="fas fa-hot-tub"></i>
+                        </div>
+                        <div class="facility-info">
+                            <h3>Сауна</h3>
+                            <p>г. Горки, ул. Вокзальная, 23</p>
+                        </div>
+                    </div>
+                    <div class="facility-description">
+                        <p>Отдых и восстановление после тренировок в современной сауне с бассейном и комнатой для мероприятий.</p>
+                    </div>
+                    <div class="facility-services">
+                        <h4>Основные услуги:</h4>
+                        <ul>
+                            <li>Первый час: 55.00 руб.</li>
+                            <li>Каждый последующий час: 45.00 руб.</li>
+                            <li>Бассейн</li>
+                            <li>Комната для мероприятий (до 6 чел.)</li>
+                        </ul>
+                    </div>
+                    <div class="facility-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Бассейн</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Комната отдыха</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Макс. 6 человек</span>
+                    </div>
+                </div>
+
+                <!-- Конный спорт -->
+                <div class="facility-card">
+                    <div class="facility-header">
+                        <div class="facility-icon">
+                            <i class="fas fa-horse"></i>
+                        </div>
+                        <div class="facility-info">
+                            <h3>Отделение конного спорта</h3>
+                            <p>г. Горки, ул. М. Иванова, 7</p>
+                        </div>
+                    </div>
+                    <div class="facility-description">
+                        <p>Профессиональная конная база для занятий конным спортом и верховой езды под руководством опытных инструкторов.</p>
+                    </div>
+                    <div class="facility-services">
+                        <h4>Основные услуги:</h4>
+                        <ul>
+                            <li>Содержание лошади: 19.50-24.70 руб./сутки</li>
+                            <li>Катание в манеже: 4.00 руб./круг</li>
+                            <li>Катание на площадке: 3.50 руб./круг</li>
+                            <li>Индивидуальное занятие: 23.00 руб./45 мин</li>
+                            <li>Фото- видеосъемка: 23.00 руб./30 мин</li>
+                        </ul>
+                    </div>
+                    <div class="facility-features">
+                        <span class="feature-tag"><i class="fas fa-check"></i> Крытый манеж</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Открытые левады</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Опытные инструкторы</span>
+                        <span class="feature-tag"><i class="fas fa-check"></i> Прокат экипировки</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Дополнительные услуги -->
+            <div class="additional-services">
+                <h3>Дополнительные услуги</h3>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <i class="fas fa-billiards"></i>
+                        <h4>Бильярд</h4>
+                        <p>9.00 руб./час</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-table-tennis"></i>
+                        <h4>Настольный теннис</h4>
+                        <p>2.10 руб./30 мин</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-futbol"></i>
+                        <h4>Настольный футбол</h4>
+                        <p>1.70-3.40 руб.</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-users"></i>
+                        <h4>Конференц-зал</h4>
+                        <p>17.00 руб./час</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-bus"></i>
+                        <h4>Услуга автобуса</h4>
+                        <p>39.00 руб./час</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-truck"></i>
+                        <h4>Услуга трактора</h4>
+                        <p>55.00 руб./час</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-camera"></i>
+                        <h4>Фото- видеосъемка</h4>
+                        <p>21.00 руб./30 мин</p>
+                    </div>
+                    <div class="service-item">
+                        <i class="fas fa-door-open"></i>
+                        <h4>Дополнительные помещения</h4>
+                        <p>14.00 руб./час</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Преимущества -->
+    <section class="advantages">
+        <div class="container">
+            <div class="advantages-grid">
+                <div class="advantage-item">
+                    <i class="fas fa-users"></i>
+                    <h3>Профессиональные тренеры</h3>
+                    <p>Опытные специалисты с certificationми</p>
+                </div>
+                <div class="advantage-item">
+                    <i class="fas fa-medal"></i>
+                    <h3>Достижения</h3>
+                    <p>Победы на республиканских и международных соревнованиях</p>
+                </div>
+                <div class="advantage-item">
+                    <i class="fas fa-child"></i>
+                    <h3>Детский спорт</h3>
+                    <p>Специализированные программы для детей и подростков</p>
+                </div>
+                <div class="advantage-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Безопасность</h3>
+                    <p>Современное оборудование и безопасные условия тренировок</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Новости и объявления -->
+    <section id="news" class="news">
+        <div class="container">
+            <div class="section-header">
+                <h2>Новости и объявления</h2>
+                <p>Актуальная информация о наших услугах и мероприятиях</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card featured">
+                    <div class="news-header">
+                        <h3>МАССОВОЕ КАТАНИЕ 2026</h3>
+                        <span class="news-date">Февраль 2026</span>
+                    </div>
+                    <div class="news-content">
+                        <p><strong>24-27 ФЕВРАЛЯ:</strong> 20.00</p>
+                        <p><strong>28 ФЕВРАЛЯ:</strong> 16.00; 18.00</p>
+                        <p><strong>1 МАРТА:</strong> 18.30</p>
+                        <div class="news-highlight">
+                            <i class="fas fa-running"></i>
+                            <p>Бесплатное использование беговых дорожек на стадионе ежедневно с 7:00 до 9:00</p>
+                        </div>
+                        <p><strong>ТЕЛЕФОН ДЛЯ СПРАВОК:</strong> 7-30-11</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-header">
+                        <h3>Приглашение жителей и гостей</h3>
+                        <span class="news-date">Постоянная информация</span>
+                    </div>
+                    <div class="news-content">
+                        <p>Уважаемые жители и гости нашего города Горки!</p>
+                        <p>Приглашаем всех желающих отдохнуть от суеты, воспользовавшись услугами ГУСУ «Горецкая ДЮСШ».</p>
+                        <p>У нас Вы можете весело провести время и получить массу приятных эмоций на следующих спортивных объектах:</p>
+                        <ul>
+                            <li>г. Горки, улица Вокзальная 23 «Ледовая арена»</li>
+                            <li>г. Горки, улица Вокзальная 21 «Стадион»</li>
+                            <li>г. Горки, улица М. Иванова 7 Отделение конного спорта</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="news-card warning">
+                    <div class="news-header">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Важная информация</h3>
+                        <span class="news-date">Безопасность</span>
+                    </div>
+                    <div class="news-content">
+                        <h4>Новая схема обмана: аферисты в лице сотрудников администраций</h4>
+                        <p>В сопредельных с нашей республикой государствах злоумышленники «обкатывают» новый способ обмана граждан, когда пенсионерам звонят, представаясь сотрудниками администраций горрайисполкомов.</p>
+                        <p><strong>Важно знать:</strong></p>
+                        <ul>
+                            <li>Сотрудники администраций не звонят гражданам с предложениями о выплатах</li>
+                            <li>Не запрашивают персональные данные, номера банковских карт или коды из SMS</li>
+                            <li>Никакие «личные кабинеты» для получения социальных выплат не создаются по звонку</li>
+                        </ul>
+                        <p>В случае сомнений не перезванивайте по номеру, с которого осуществлялся звонок - сами наберите номер администрации из официального источника или обратитесь в милицию по телефону «102».</p>
+                    </div>
+                </div>
+                
+                <div class="news-card warning">
+                    <div class="news-header">
+                        <h3><i class="fas fa-phone-alt"></i> Телефонное мошенничество</h3>
+                        <span class="news-date">Безопасность</span>
+                    </div>
+                    <div class="news-content">
+                        <h4>Не стать жертвой телефонных мошенников</h4>
+                        <p>Мошенники под видом работников банка, операторов сотовой связи или государственных органов обращаются к гражданам, создают стрессовую ситуацию, сообщают о проблеме, а потом предлагают помощь в ее решении.</p>
+                        <p><strong>Правила безопасности:</strong></p>
+                        <ul>
+                            <li>Всегда нужно быть начеку и не доверять незнакомцам</li>
+                            <li>Не устанавливать непроверенные программы и файлы из мессенджеров</li>
+                            <li>Не передавать кому бы то ни было деньги по указанию незнакомых</li>
+                            <li>Не сообщать коды из SMS-сообщений третьим лицам</li>
+                        </ul>
+                        <p><em>Первый заместитель начальника Горецкого РОВД – начальник криминальной милиции подполковник милиции С.В. Питяков</em></p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-header">
+                        <h3><i class="fas fa-home"></i> Аренда жилья</h3>
+                        <span class="news-date">Предупреждение</span>
+                    </div>
+                    <div class="news-content">
+                        <h4>Как снять жилье и не попасть на мошенников</h4>
+                        <p>В области участились случаи мошенничества со сдачей квартир в аренду. Мошенники используют популярные торговые площадки, а цена за жилье значительно ниже аналогичных предложений.</p>
+                        <p><strong>Рекомендации:</strong></p>
+                        <ul>
+                            <li>Связываться с хозяином не только через интернет-мессенджеры</li>
+                            <li>Договориться о личной встрече для осмотра жилья</li>
+                            <li>Обращать внимание на номера телефонов и счетов (должны быть белорусскими)</li>
+                            <li>Требовать документы, подтверждающие принадлежность квартиры</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Дополнительная информация -->
+    <section id="safety" class="safety-info">
+        <div class="container">
+            <div class="section-header">
+                <h2>Важная информация о безопасности</h2>
+                <p>Рекомендации по защите от мошенничества</p>
+            </div>
+            
+            <div class="safety-grid">
+                <div class="safety-card">
+                    <div class="safety-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Поддельные письма от ГАИ</h3>
+                    <p>Граждане получают сообщения о нарушении ПДД с кнопкой «оплатить сейчас», ведущей на сторонние сайты. Помните: официальные письма направляются через РУП «Белпочта».</p>
+                </div>
+                
+                <div class="safety-card">
+                    <div class="safety-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Звонки от отдела образования</h3>
+                    <p>Мошенники звонят от имени бухгалтерии отдела образования, сообщают о выплатах и просят паспортные данные для оформления пропуска.</p>
+                </div>
+                
+                <div class="safety-card">
+                    <div class="safety-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Запчасти к авто через интернет</h3>
+                    <p>Мошенники создают интернет-магазины с ценами ниже рыночных. После предоплаты товар не доставляется.</p>
+                </div>
+                
+                <div class="safety-card">
+                    <div class="safety-icon">
+                        <i class="fas fa-fish"></i>
+                    </div>
+                    <h3>Морепродукты онлайн</h3>
+                    <p>Широко распространен обман в соцсетях под предлогом продажи морепродуктов по заниженным ценам.</p>
+                </div>
+            </div>
+            
+            <div class="emergency-contacts">
+                <h3>Экстренные контакты</h3>
+                <div class="contacts-list">
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Милиция</h4>
+                            <p>102</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Справка ДЮСШ</h4>
+                            <p>7-30-11</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Галерея -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Фотогалерея</h2>
+                <p>Наши спортивные объекты и мероприятия</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>Ледовая арена</h4>
+                        <p>Тренировки по хоккею</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>Спортивный зал</h4>
+                        <p>Соревнования по баскетболу</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>Стадион</h4>
+                        <p>Футбольные матчи</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-image">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4>Тренажерный зал</h4>
+                        <p>Современное оборудование</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contacts" class="contacts">
+        <div class="container">
+            <div class="section-header">
+                <h2>Контакты</h2>
+                <p>Свяжитесь с нами для консультации</p>
+            </div>
+            <div class="contacts-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Адрес</h4>
+                            <p>213410, ул. Вокзальная, 23<br>г. Горки, Могилевская обл.</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Телефоны</h4>
+                            <p>Приёмная: (+375 2233) 79995</p>
+                            <p>Бухгалтерия: (+375 2233) 79993</p>
+                            <p>Справка: 8 (02233) 73011</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>Приёмная, учебный отдел: Ledovaya@gorkiled.by</p>
+                            <p>Отделение конного спорта: konnaya@gorkiled.by</p>
+                            <p>Бухгалтерия: otdel.fkct@gorkiled.by</p>
+                            <p>Администраторы: admin2020@gorkiled.by</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>График работы</h4>
+                            <p>Понедельник-пятница: 8.00-17.00</p>
+                            <p>Обед: 13.00-14.00</p>
+                            <p>Суббота-воскресенье: выходной</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" placeholder="Ваше имя" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Телефон">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Сообщение" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Руководство -->
+            <div class="management-section">
+                <h3>Руководство</h3>
+                <div class="management-grid">
+                    <div class="management-item">
+                        <div class="management-info">
+                            <h4>Директор</h4>
+                            <p>Королёв Владимир Иванович</p>
+                            <p>8(02233)79998</p>
+                        </div>
+                    </div>
+                    <div class="management-item">
+                        <div class="management-info">
+                            <h4>Заместитель директора по основной деятельности</h4>
+                            <p>Рудько Николай Николаевич</p>
+                            <p>8(02233)70146</p>
+                        </div>
+                    </div>
+                    <div class="management-item">
+                        <div class="management-info">
+                            <h4>Заместитель директора по АХД</h4>
+                            <p>Леденёва Алина Витальевна</p>
+                            <p>8(02233)79995</p>
+                        </div>
+                    </div>
+                    <div class="management-item">
+                        <div class="management-info">
+                            <h4>Главный бухгалтер</h4>
+                            <p>Ежикова Наталья Владимировна</p>
+                            <p>8(02233)79993</p>
+                        </div>
+                    </div>
+                    <div class="management-item">
+                        <div class="management-info">
+                            <h4>Главный инженер</h4>
+                            <p>Ларченко Владимир Валерьевич</p>
+                            <p>8(02233)79472</p>
+                        </div>
+                    </div>
+                    <div class="management-item">
+                        <div class="management-info">
+                            <h4>Юрисконсульт</h4>
+                            <p>Терехова Ольга Викторовна</p>
+                            <p>8(02233)70146</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Банковские реквизиты -->
+            <div class="bank-details">
+                <h3>Банковские реквизиты</h3>
+                <div class="bank-info">
+                    <div class="bank-item">
+                        <h4>Полное наименование</h4>
+                        <p>ГУСУ "Горецкая ДЮСШ"</p>
+                    </div>
+                    <div class="bank-item">
+                        <h4>Юридический адрес</h4>
+                        <p>213410, ул. Вокзальная, 23, г. Горки, Могилевская обл.</p>
+                    </div>
+                    <div class="bank-item">
+                        <h4>УНН</h4>
+                        <p>700077916</p>
+                    </div>
+                    <div class="bank-item">
+                        <h4>Банк</h4>
+                        <p>ОАО "АСБ Беларусбанк" г. Минск</p>
+                        <p>Отделение г. Горки, ул. Куйбышева, 3</p>
+                    </div>
+                    <div class="bank-item">
+                        <h4>БИК</h4>
+                        <p>AKBBBY2X</p>
+                    </div>
+                    <div class="bank-accounts">
+                        <h4>Расчетные счета</h4>
+                        <div class="account-item">
+                            <span>Внебюджетный:</span>
+                            <code>BY68AKBB36320284817907300000</code>
+                        </div>
+                        <div class="account-item">
+                            <span>Бюджетный:</span>
+                            <code>BY97AKBB36040284823657300000</code>
+                        </div>
+                        <div class="account-item">
+                            <span>Спонсорский:</span>
+                            <code>BY33AKBB3642028481517300000</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-hockey-sticks"></i> Горецкая ДЮСШ</h3>
+                    <p>Государственное учебно-спортивное учреждение</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Объекты</h4>
+                    <ul>
+                        <li><a href="#facilities">Ледовая арена</a></li>
+                        <li><a href="#facilities">Спортивный зал</a></li>
+                        <li><a href="#facilities">Стадион</a></li>
+                        <li><a href="#facilities">Тренажерный зал</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Виды спорта</h4>
+                    <ul>
+                        <li><a href="#facilities">Хоккей</a></li>
+                        <li><a href="#facilities">Фигурное катание</a></li>
+                        <li><a href="#facilities">Футбол</a></li>
+                        <li><a href="#facilities">Баскетбол</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Информация</h4>
+                    <ul>
+                        <li><a href="#about">О нас</a></li>
+                        <li><a href="#news">Новости</a></li>
+                        <li><a href="#gallery">Фотогалерея</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                        <li><a href="#">Документы</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Горецкая ДЮСШ. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

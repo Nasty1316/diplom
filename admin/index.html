@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Административная панель - Горецкая ДЮСШ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .admin-header {
+            margin-bottom: 2rem;
+        }
+
+        .admin-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .admin-logo i {
+            font-size: 3rem;
+            color: #2563eb;
+        }
+
+        .admin-logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .admin-subtitle {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .admin-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .admin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #2563eb, #1e40af);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .admin-btn.secondary {
+            background: #64748b;
+        }
+
+        .admin-btn.secondary:hover {
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+        }
+
+        .admin-info {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+        }
+
+        .admin-info h4 {
+            color: #16a34a;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-info p {
+            color: #15803d;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .admin-info code {
+            background: #dcfce7;
+            padding: 0.125rem 0.25rem;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .logout-btn {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+            
+            .admin-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="logout-btn">
+        <i class="fas fa-arrow-left"></i>
+        На сайт
+    </a>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <div class="admin-logo">
+                <i class="fas fa-hockey-sticks"></i>
+                <h1>Административная панель</h1>
+            </div>
+            <p class="admin-subtitle">Система управления сайтом Горецкой ДЮСШ</p>
+        </div>
+
+        <div class="admin-features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-newspaper"></i>
+                </div>
+                <h3>Новости</h3>
+                <p>Управление новостями и объявлениями</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-images"></i>
+                </div>
+                <h3>Галерея</h3>
+                <p>Загрузка и управление фотографиями</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <h3>Цены</h3>
+                <p>Настройка стоимости услуг</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-address-book"></i>
+                </div>
+                <h3>Контакты</h3>
+                <p>Редактирование контактной информации</p>
+            </div>
+        </div>
+
+        <div class="admin-actions">
+            <button class="admin-btn" onclick="alert('Функция управления новостями в разработке')">
+                <i class="fas fa-newspaper"></i>
+                Управление новостями
+            </button>
+            <button class="admin-btn" onclick="alert('Функция галереи в разработке')">
+                <i class="fas fa-images"></i>
+                Галерея
+            </button>
+            <button class="admin-btn" onclick="alert('Функция цен в разработке')">
+                <i class="fas fa-dollar-sign"></i>
+                Цены
+            </button>
+            <button class="admin-btn" onclick="alert('Функция контактов в разработке')">
+                <i class="fas fa-address-book"></i>
+                Контакты
+            </button>
+        </div>
+
+        <div class="admin-info">
+            <h4>🎉 Добро пожаловать в административную панель!</h4>
+            <p>
+                Вы успешно вошли в систему управления сайтом. Здесь вы можете управлять контентом, 
+                загружать фотографии, обновлять цены и редактировать контактную информацию.
+            </p>
+            <p>
+                <strong>Текущий пользователь:</strong> Администратор<br>
+                <strong>Время входа:</strong> <span id="login-time"></span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Проверка аутентификации - временная сессия
+        function checkAuth() {
+            const token = sessionStorage.getItem('adminToken');
+            if (token !== 'demo-token') {
+                console.log('Токен не найден или недействителен, перенаправляем на вход');
+                window.location.href = 'login.html';
+                return false;
+            }
+            
+            // Проверка времени сессии (30 минут)
+            const loginTime = sessionStorage.getItem('loginTime');
+            if (loginTime) {
+                const now = Date.now();
+                const sessionAge = now - parseInt(loginTime);
+                const maxAge = 30 * 60 * 1000; // 30 минут
+                
+                if (sessionAge > maxAge) {
+                    console.log('Сессия истекла, требуется повторный вход');
+                    sessionStorage.removeItem('adminToken');
+                    sessionStorage.removeItem('loginTime');
+                    window.location.href = 'login.html';
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        // Установка времени входа
+        function setLoginTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            document.getElementById('login-time').textContent = timeString;
+            
+            // Сохраняем время входа для проверки сессии
+            sessionStorage.setItem('loginTime', Date.now().toString());
+        }
+
+        // Выход из системы
+        function logout() {
+            if (confirm('Вы уверены, что хотите выйти?')) {
+                sessionStorage.removeItem('adminToken');
+                sessionStorage.removeItem('loginTime');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            if (checkAuth()) {
+                setLoginTime();
+                
+                // Обновление времени каждую минуту
+                setInterval(setLoginTime, 60000);
+                
+                console.log('Административная панель загружена успешно');
+            }
+        });
+
+        // Добавление горячих клавиш
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+L для выхода
+            if (e.ctrlKey && e.key === 'l') {
+                e.preventDefault();
+                logout();
+            }
+            // Ctrl+N для новостей
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                alert('Управление новостями в разработке');
+            }
+        });
+    </script>
+</body>
+</html>

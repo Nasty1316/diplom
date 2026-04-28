@@ -1,0 +1,147 @@
+@startuml Use Case Diagram
+
+' Настройки для вертикального расположения
+skinparam actorStyle awesome
+skinparam useCase {
+    BackgroundColor #E3F2FD
+    BorderColor #1976D2
+    ArrowColor #1976D2
+}
+skinparam rectangle {
+    BackgroundColor #E8F5E8
+    BorderColor #2E7D32
+}
+skinparam linetype ortho
+
+' Акторы (размещены слева для вертикальной компоновки)
+actor "Администратор" as admin <<left>>
+actor "Менеджер" as manager <<left>>
+actor "Клиент" as customer <<left>>
+actor "Гость" as guest <<left>>
+
+' Система границ
+rectangle "Система управления LED освещением" {
+    
+    ' === БЛОК АУТЕНТИФИКАЦИИ И УПРАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯМИ ===
+    usecase "Аутентификация" as auth
+    usecase "Регистрация" as register
+    usecase "Управление пользователями" as user_mgmt
+    
+    ' === БЛОК УПРАВЛЕНИЯ ОБОРУДОВАНИЕМ ===
+    usecase "Управление LED устройствами" as device_mgmt
+    usecase "Мониторинг состояния" as monitoring
+    usecase "Настройка параметров" as settings
+    
+    ' === БЛОК УПРАВЛЕНИЯ ПРОЕКТАМИ ===
+    usecase "Создание проекта" as create_project
+    usecase "Редактирование проекта" as edit_project
+    usecase "Просмотр проектов" as view_projects
+    
+    ' === БЛОК КОММЕРЧЕСКИХ ФУНКЦИЙ ===
+    usecase "Формирование заказов" as create_order
+    usecase "Расчет стоимости" as calculate_cost
+    usecase "Генерация отчетов" as generate_reports
+    
+    ' === БЛОК ПРОСМОТРА И ПОИСКА ===
+    usecase "Просмотр каталога" as view_catalog
+    usecase "Поиск продуктов" as search_products
+    usecase "Просмотр документации" as view_docs
+}
+
+' Группировка вариантов использования по функциональным блокам
+' Аутентификация и управление
+auth -up- register
+register -up- user_mgmt
+
+' Управление оборудованием
+device_mgmt -up- monitoring
+monitoring -up- settings
+
+' Управление проектами
+create_project -up- edit_project
+edit_project -up- view_projects
+
+' Коммерческие функции
+create_order -up- calculate_cost
+calculate_cost -up- generate_reports
+
+' Просмотр и поиск
+view_catalog -up- search_products
+search_products -up- view_docs
+
+' Вертикальные связи между блоками
+user_mgmt -down- device_mgmt : <<управляет>>
+device_mgmt -down- create_project : <<использует>>
+create_project -down- create_order : <<создает>>
+create_order -down- view_catalog : <<просматривает>>
+
+' Связи акторов с вариантами использования
+admin --> auth
+admin --> user_mgmt
+admin --> device_mgmt
+admin --> monitoring
+admin --> settings
+admin --> create_project
+admin --> edit_project
+admin --> create_order
+admin --> calculate_cost
+admin --> generate_reports
+
+manager --> auth
+manager --> device_mgmt
+manager --> monitoring
+manager --> settings
+manager --> create_project
+manager --> edit_project
+manager --> create_order
+manager --> calculate_cost
+manager --> generate_reports
+
+customer --> auth
+customer --> view_projects
+customer --> create_order
+customer --> calculate_cost
+customer --> view_catalog
+customer --> search_products
+
+guest --> register
+guest --> view_catalog
+guest --> search_products
+guest --> view_docs
+
+' Отношения между вариантами использования
+user_mgmt --> auth : <<include>>
+create_project --> edit_project : <<extend>>
+create_order --> calculate_cost : <<include>>
+view_projects --> view_catalog : <<include>>
+
+' Описания ролей акторов
+note left of admin
+  **Администратор**
+  - Полный доступ ко всем функциям
+  - Управление пользователями
+  - Администрирование системы
+end note
+
+note left of manager
+  **Менеджер**
+  - Управление проектами
+  - Работа с оборудованием
+  - Коммерческие функции
+end note
+
+note left of customer
+  **Клиент**
+  - Создание заказов
+  - Просмотр своих проектов
+  - Доступ к каталогу
+end note
+
+note left of guest
+  **Гость**
+  - Регистрация
+  - Просмотр каталога
+  - Доступ к документации
+end note
+
+@enduml

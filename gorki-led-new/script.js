@@ -8,15 +8,7 @@ function loadNewsFromStorage() {
     try {
         const stored = localStorage.getItem('gorkiNews');
         if (stored) {
-            const news = JSON.parse(stored);
-            if (Array.isArray(news)) {
-                console.log(`Загружено ${news.length} новостей`);
-                return news;
-            } else {
-                console.warn('Некорректные данные новостей в localStorage, очищаем');
-                localStorage.removeItem('gorkiNews');
-                return [];
-            }
+            return JSON.parse(stored);
         }
         return [];
     } catch (error) {
@@ -1717,4 +1709,813 @@ document.addEventListener('touchend', function(e) {
         e.preventDefault();
     }
     touchEndTime = currentTime;
+});
+
+// Функции управления модальным окном админ-панели
+function openAdminModal() {
+    const modal = document.getElementById('adminModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        
+        // Показываем форму входа по умолчанию
+        showLoginForm();
+    }
+}
+
+function showLoginForm() {
+    // Скрыть все секции
+    const sections = document.querySelectorAll('.admin-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Показать форму входа
+    const loginForm = document.getElementById('adminLogin');
+    if (loginForm) {
+        loginForm.style.display = 'block';
+    }
+}
+
+function showAdminPanel() {
+    // Скрыть все секции
+    const sections = document.querySelectorAll('.admin-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Показать админ-панель
+    const adminPanel = document.getElementById('adminPanel');
+    if (adminPanel) {
+        adminPanel.style.display = 'block';
+    }
+}
+
+function adminLogin(event) {
+    event.preventDefault();
+    
+    const username = document.getElementById('adminUsername').value;
+    const password = document.getElementById('adminPassword').value;
+    
+    // Простая проверка логина и пароля
+    if (username === 'admin' && password === 'admin') {
+        // Сохраняем информацию о входе
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        sessionStorage.setItem('loginTime', new Date().toISOString());
+        
+        // Показываем админ-панель
+        showAdminPanel();
+        
+        // Очищаем форму
+        document.getElementById('loginForm').reset();
+        
+        alert('Вход выполнен успешно!');
+    } else {
+        alert('Неверный логин или пароль!');
+    }
+}
+
+function adminLogout() {
+    // Удаляем информацию о входе
+    sessionStorage.removeItem('adminLoggedIn');
+    sessionStorage.removeItem('loginTime');
+    
+    // Показываем форму входа
+    showLoginForm();
+    
+    alert('Вы вышли из системы');
+}
+
+function checkAuth() {
+    const isLoggedIn = sessionStorage.getItem('adminLoggedIn');
+    const loginTime = sessionStorage.getItem('loginTime');
+    
+    if (isLoggedIn === 'true' && loginTime) {
+        const loginDate = new Date(loginTime);
+        const now = new Date();
+        const hoursDiff = (now - loginDate) / (1000 * 60 * 60);
+        
+        // Автоматический выход через 24 часа
+        if (hoursDiff < 24) {
+            showAdminPanel();
+            return true;
+        }
+    }
+    
+    showLoginForm();
+    return false;
+}
+
+function closeAdminModal() {
+    const modal = document.getElementById('adminModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+// Функциональность перемещения модального окна
+function makeModalDraggable() {
+    const modal = document.getElementById('adminModal');
+    const modalContent = modal.querySelector('.admin-modal-content');
+    const modalHeader = modal.querySelector('.admin-header');
+    
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
+    function dragStart(e) {
+        if (e.type === "touchstart") {
+            initialX = e.touches[0].clientX - xOffset;
+            initialY = e.touches[0].clientY - yOffset;
+        } else {
+            initialX = e.clientX - xOffset;
+            initialY = e.clientY - yOffset;
+        }
+
+        if (e.target.closest('.admin-header') && !e.target.closest('.modal-close')) {
+            isDragging = true;
+            modalContent.style.cursor = 'grabbing';
+        }
+    }
+
+    function dragEnd(e) {
+        initialX = currentX;
+        initialY = currentY;
+        isDragging = false;
+        modalContent.style.cursor = 'auto';
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            
+            if (e.type === "touchmove") {
+                currentX = e.touches[0].clientX - initialX;
+                currentY = e.touches[0].clientY - initialY;
+            } else {
+                currentX = e.clientX - initialX;
+                currentY = e.clientY - initialY;
+            }
+
+            xOffset = currentX;
+            yOffset = currentY;
+
+            // Применяем трансформацию для перемещения
+            modalContent.style.transform = `translate(${currentX}px, ${currentY}px)`;
+        }
+    }
+
+    // Добавляем обработчики событий
+    modalHeader.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+    
+    // Поддержка touch-устройств
+    modalHeader.addEventListener('touchstart', dragStart);
+    document.addEventListener('touchmove', drag);
+    document.addEventListener('touchend', dragEnd);
+}
+
+// Инициализация перемещаемого окна при загрузке
+document.addEventListener('DOMContentLoaded', function() {
+    makeModalDraggable();
+});
+
+function backToAdminPanel() {
+    // Скрыть все секции
+    const sections = document.querySelectorAll('.admin-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+    
+    // Показать главную панель
+    const adminPanel = document.getElementById('adminPanel');
+    if (adminPanel) {
+        adminPanel.style.display = 'block';
+    }
+}
+
+// Функции управления админ-панелью
+function hideAllSections() {
+    const sections = document.querySelectorAll('.admin-section');
+    sections.forEach(section => {
+        section.style.display = 'none';
+    });
+}
+
+function backToAdminPanel() {
+    hideAllSections();
+    document.querySelector('.admin-features').parentElement.style.display = 'block';
+}
+
+// Управление новостями
+let newsItems = [];
+
+function openNewsSection() {
+    hideAllSections();
+    const newsSection = document.getElementById('newsSection');
+    if (newsSection) {
+        newsSection.style.display = 'block';
+        loadNewsFromStorage();
+        renderNews();
+    }
+}
+
+function loadNewsFromStorage() {
+    const stored = localStorage.getItem('gorkiNews');
+    if (stored) {
+        newsItems = JSON.parse(stored);
+    } else {
+        newsItems = [];
+    }
+}
+
+function saveNewsToStorage() {
+    localStorage.setItem('gorkiNews', JSON.stringify(newsItems));
+}
+
+function renderNews() {
+    const newsList = document.getElementById('newsList');
+    if (!newsList) return;
+    
+    if (newsItems.length === 0) {
+        newsList.innerHTML = '<p style="text-align: center; color: #64748b; padding: 2rem;">Новостей пока нет</p>';
+        return;
+    }
+
+    newsList.innerHTML = newsItems.map((news, index) => `
+        <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+            <h5 style="margin: 0 0 0.5rem 0; color: #1e293b;">${news.title}</h5>
+            <p style="margin: 0 0 0.5rem 0; color: #64748b; font-size: 0.875rem;">${news.excerpt || 'Нет описания'}</p>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <small style="color: #94a3b8;">${new Date(news.createdAt).toLocaleString('ru-RU')}</small>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="admin-btn" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="editNews(${index})">
+                        <i class="fas fa-edit"></i>
+                        Изменить
+                    </button>
+                    <button class="admin-btn secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="deleteNews(${index})">
+                        <i class="fas fa-trash"></i>
+                        Удалить
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function deleteNews(index) {
+    if (confirm('Удалить эту новость?')) {
+        newsItems.splice(index, 1);
+        renderNews();
+    }
+}
+
+let editingNewsIndex = null;
+
+function editNews(index) {
+    editingNewsIndex = index;
+    const news = newsItems[index];
+    
+    const titleInput = document.getElementById('newsTitle');
+    const contentInput = document.getElementById('newsContent');
+    const excerptInput = document.getElementById('newsExcerpt');
+    
+    if (titleInput) titleInput.value = news.title;
+    if (contentInput) contentInput.value = news.content;
+    if (excerptInput) excerptInput.value = news.excerpt || '';
+    
+    const submitBtn = document.querySelector('#newsForm button[type="submit"]');
+    if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-save"></i> Сохранить изменения';
+}
+
+function saveNews() {
+    saveNewsToStorage();
+    alert('Новости успешно сохранены!');
+}
+
+// Управление ценами
+let priceItems = [];
+
+function openPricesSection() {
+    hideAllSections();
+    const pricesSection = document.getElementById('pricesSection');
+    if (pricesSection) {
+        pricesSection.style.display = 'block';
+        loadPricesFromStorage();
+        renderPrices();
+    }
+}
+
+function loadPricesFromStorage() {
+    const stored = localStorage.getItem('gorkiPrices');
+    if (stored) {
+        priceItems = JSON.parse(stored);
+    } else {
+        priceItems = [
+            { name: 'Абонемент на месяц', price: '50 руб', description: 'Посещение всех секций' },
+            { name: 'Индивидуальное занятие', price: '15 руб', description: '1 час с тренером' },
+            { name: 'Групповое занятие', price: '8 руб', description: '1 час в группе' }
+        ];
+    }
+}
+
+function savePricesToStorage() {
+    localStorage.setItem('gorkiPrices', JSON.stringify(priceItems));
+}
+
+function renderPrices() {
+    const pricesList = document.getElementById('pricesList');
+    if (!pricesList) return;
+    
+    pricesList.innerHTML = priceItems.map((price, index) => `
+        <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr auto; gap: 0.5rem; align-items: center;">
+                <input type="text" id="price-name-${index}" value="${price.name}" 
+                       style="padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 4px;">
+                <input type="text" id="price-value-${index}" value="${price.price}" 
+                       style="padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 4px;">
+                <button class="admin-btn secondary" style="padding: 0.5rem;" onclick="deletePrice(${index})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+            <input type="text" id="price-desc-${index}" value="${price.description || ''}" 
+                   placeholder="Описание" style="width: 100%; margin-top: 0.5rem; padding: 0.5rem; border: 1px solid #e2e8f0; border-radius: 4px;">
+            <div style="display: flex; justify-content: flex-end; margin-top: 0.5rem;">
+                <button class="admin-btn" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;" onclick="savePriceItem(${index})">
+                    <i class="fas fa-save"></i>
+                    Сохранить
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addPriceItem() {
+    priceItems.push({ name: '', price: '', description: '' });
+    renderPrices();
+}
+
+function savePriceItem(index) {
+    const nameInput = document.getElementById(`price-name-${index}`);
+    const priceInput = document.getElementById(`price-value-${index}`);
+    const descInput = document.getElementById(`price-desc-${index}`);
+    
+    if (!nameInput || !priceInput) return;
+    
+    const name = nameInput.value;
+    const price = priceInput.value;
+    const description = descInput ? descInput.value : '';
+    
+    if (!name || !price) {
+        alert('Пожалуйста, заполните название и цену!');
+        return;
+    }
+    
+    priceItems[index] = {
+        ...priceItems[index],
+        name,
+        price,
+        description,
+        updatedAt: new Date().toISOString()
+    };
+    
+    alert('Изменения сохранены!');
+    savePricesToStorage();
+}
+
+function deletePrice(index) {
+    if (confirm('Удалить эту услугу?')) {
+        priceItems.splice(index, 1);
+        renderPrices();
+    }
+}
+
+function savePrices() {
+    savePricesToStorage();
+    alert('Все цены успешно сохранены!');
+}
+
+// Управление главным экраном
+function openHeroSection() {
+    hideAllSections();
+    const heroSection = document.getElementById('heroSection');
+    const featuresGrid = document.querySelector('.admin-features');
+    
+    if (heroSection && featuresGrid) {
+        heroSection.style.display = 'block';
+        featuresGrid.style.display = 'none';
+        loadHeroSettings();
+    }
+}
+
+function loadHeroSettings() {
+    const heroData = localStorage.getItem('gorkiHero');
+    if (heroData) {
+        const data = JSON.parse(heroData);
+        document.getElementById('heroTitle').value = data.title || '';
+        document.getElementById('heroSubtitle').value = data.subtitle || '';
+    }
+}
+
+function saveHeroSettings() {
+    const title = document.getElementById('heroTitle').value;
+    const subtitle = document.getElementById('heroSubtitle').value;
+    const backgroundInput = document.getElementById('heroBackground');
+    const backgroundFile = backgroundInput ? backgroundInput.files[0] : null;
+    
+    const heroData = {
+        title,
+        subtitle,
+        updatedAt: new Date().toISOString()
+    };
+    
+    if (backgroundFile) {
+        console.log('Загрузка фона для hero:', backgroundFile.name);
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            console.log('Фон hero успешно загружен');
+            heroData.backgroundImage = e.target.result;
+            localStorage.setItem('gorkiHero', JSON.stringify(heroData));
+            alert('Настройки главного экрана сохранены!');
+        };
+        reader.onerror = function(e) {
+            console.error('Ошибка загрузки фона hero:', e);
+            alert('Ошибка при загрузке фона: ' + e.target.error);
+        };
+        reader.readAsDataURL(backgroundFile);
+    } else {
+        console.log('Фон не выбран, сохраняем только текст');
+        const existingData = localStorage.getItem('gorkiHero');
+        if (existingData) {
+            const existing = JSON.parse(existingData);
+            heroData.backgroundImage = existing.backgroundImage;
+        }
+        localStorage.setItem('gorkiHero', JSON.stringify(heroData));
+        alert('Настройки главного экрана сохранены!');
+    }
+}
+
+// Управление галереей
+let galleryImages = [];
+
+function openGallerySection() {
+    hideAllSections();
+    const gallerySection = document.getElementById('gallerySection');
+    const featuresGrid = document.querySelector('.admin-features');
+    
+    if (gallerySection && featuresGrid) {
+        gallerySection.style.display = 'block';
+        featuresGrid.style.display = 'none';
+        loadGalleryImages();
+        renderGallery();
+    }
+}
+
+function loadGalleryImages() {
+    const stored = localStorage.getItem('gorkiGallery');
+    if (stored) {
+        galleryImages = JSON.parse(stored);
+    } else {
+        galleryImages = [];
+    }
+}
+
+function renderGallery() {
+    console.log('renderGallery вызван, изображений в массиве:', galleryImages.length);
+    
+    const galleryList = document.getElementById('galleryList');
+    if (!galleryList) {
+        console.error('galleryList элемент не найден!');
+        return;
+    }
+    
+    if (galleryImages.length === 0) {
+        console.log('Галерея пуста');
+        galleryList.innerHTML = '<p style="text-align: center; color: #64748b; padding: 2rem;">Фотографий пока нет</p>';
+        return;
+    }
+    
+    console.log('Отображаю', galleryImages.length, 'изображений');
+    
+    galleryList.innerHTML = galleryImages.map((image, index) => {
+        console.log(`Создаю HTML для изображения ${index}:`, image.name);
+        return `
+        <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+            <img src="${image.url}" alt="${image.name}" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 4px; margin-bottom: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #374151; font-size: 0.875rem;">${image.name}</span>
+                <button class="admin-btn secondary" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="deleteGalleryImage(${index})">
+                    <i class="fas fa-trash"></i>
+                    Удалить
+                </button>
+            </div>
+        </div>
+    `;
+    }).join('');
+    
+    console.log('HTML галереи установлен');
+}
+
+function addGalleryImages() {
+    const fileInput = document.getElementById('galleryImages');
+    if (!fileInput) {
+        alert('Ошибка: элемент для загрузки файлов не найден');
+        return;
+    }
+    
+    const files = fileInput.files;
+    if (files.length === 0) {
+        alert('Выберите фотографии для добавления');
+        return;
+    }
+    
+    console.log('Начинаю загрузку', files.length, 'файлов');
+    
+    // Загружаем первый файл для теста
+    const file = files[0];
+    console.log('Файл:', file.name, file.type, file.size);
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        console.log('Файл успешно загружен!');
+        
+        galleryImages.push({
+            name: file.name,
+            url: e.target.result,
+            addedAt: new Date().toISOString()
+        });
+        
+        renderGallery();
+        alert('Фотография добавлена!');
+        
+        // Очищаем input
+        fileInput.value = '';
+    };
+    
+    reader.onerror = function(e) {
+        console.error('Ошибка загрузки:', e);
+        alert('Ошибка при загрузке файла: ' + e.target.error);
+    };
+    
+    reader.readAsDataURL(file);
+}
+
+function deleteGalleryImage(index) {
+    if (confirm('Удалить эту фотографию?')) {
+        galleryImages.splice(index, 1);
+        renderGallery();
+    }
+}
+
+function saveGallery() {
+    localStorage.setItem('gorkiGallery', JSON.stringify(galleryImages));
+    alert('Галерея успешно сохранена!');
+}
+
+// Управление разделом "О нас"
+function openAboutSection() {
+    hideAllSections();
+    const aboutSection = document.getElementById('aboutSection');
+    const featuresGrid = document.querySelector('.admin-features');
+    
+    if (aboutSection && featuresGrid) {
+        aboutSection.style.display = 'block';
+        featuresGrid.style.display = 'none';
+        loadAboutInfo();
+    }
+}
+
+function loadAboutInfo() {
+    const aboutData = localStorage.getItem('gorkiAbout');
+    if (aboutData) {
+        const data = JSON.parse(aboutData);
+        document.getElementById('aboutTitle').value = data.title || '';
+        document.getElementById('aboutDescription').value = data.description || '';
+    }
+}
+
+function saveAboutInfo() {
+    const title = document.getElementById('aboutTitle').value;
+    const description = document.getElementById('aboutDescription').value;
+    const imagesInput = document.getElementById('aboutImages');
+    const imagesFile = imagesInput ? imagesInput.files[0] : null;
+    
+    const aboutData = {
+        title,
+        description,
+        updatedAt: new Date().toISOString()
+    };
+    
+    if (imagesFile) {
+        console.log('Загрузка изображения для "О нас":', imagesFile.name);
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            console.log('Изображение "О нас" успешно загружено');
+            aboutData.image = e.target.result;
+            localStorage.setItem('gorkiAbout', JSON.stringify(aboutData));
+            alert('Информация о школе сохранена!');
+        };
+        reader.onerror = function(e) {
+            console.error('Ошибка загрузки изображения "О нас":', e);
+            alert('Ошибка при загрузке изображения: ' + e.target.error);
+        };
+        reader.readAsDataURL(imagesFile);
+    } else {
+        console.log('Изображение "О нас" не выбрано, сохраняем только текст');
+        const existingData = localStorage.getItem('gorkiAbout');
+        if (existingData) {
+            const existing = JSON.parse(existingData);
+            aboutData.image = existing.image;
+        }
+        localStorage.setItem('gorkiAbout', JSON.stringify(aboutData));
+        alert('Информация о школе сохранена!');
+    }
+}
+
+// Управление контактами
+function openContactsSection() {
+    hideAllSections();
+    const contactsSection = document.getElementById('contactsSection');
+    const featuresGrid = document.querySelector('.admin-features');
+    
+    if (contactsSection && featuresGrid) {
+        contactsSection.style.display = 'block';
+        featuresGrid.style.display = 'none';
+        loadContactInfo();
+    }
+}
+
+function loadContactInfo() {
+    const contactData = localStorage.getItem('gorkiContacts');
+    if (contactData) {
+        const data = JSON.parse(contactData);
+        document.getElementById('contactPhone').value = data.phone || '';
+        document.getElementById('contactEmail').value = data.email || '';
+        document.getElementById('contactAddress').value = data.address || '';
+        document.getElementById('contactSchedule').value = data.schedule || '';
+        document.getElementById('contactMap').value = data.mapUrl || '';
+    }
+}
+
+function saveContactInfo() {
+    const phone = document.getElementById('contactPhone').value;
+    const email = document.getElementById('contactEmail').value;
+    const address = document.getElementById('contactAddress').value;
+    const schedule = document.getElementById('contactSchedule').value;
+    const mapUrl = document.getElementById('contactMap').value;
+    
+    const contactData = {
+        phone,
+        email,
+        address,
+        schedule,
+        mapUrl,
+        updatedAt: new Date().toISOString()
+    };
+    
+    localStorage.setItem('gorkiContacts', JSON.stringify(contactData));
+    alert('Контактная информация сохранена!');
+}
+
+function adminLogout() {
+    window.location.href = 'index.html';
+}
+
+// Простая тестовая функция загрузки изображения
+function testImageUpload() {
+    console.log('Начало теста загрузки изображения...');
+    
+    // Создаем тестовый input
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    
+    input.onchange = function(e) {
+        const file = e.target.files[0];
+        if (!file) {
+            console.log('Файл не выбран');
+            return;
+        }
+        
+        console.log('Выбран файл:', file.name, file.type, file.size);
+        
+        if (!file.type.startsWith('image/')) {
+            console.error('Это не изображение!');
+            alert('Выбранный файл не является изображением!');
+            return;
+        }
+        
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            console.log('Файл успешно загружен, размер данных:', e.target.result.length);
+            console.log('Первые 100 символов:', e.target.result.substring(0, 100));
+            
+            // Показываем изображение в alert
+            alert('Изображение успешно загружено! Размер: ' + e.target.result.length + ' символов');
+            
+            // Сохраняем в localStorage для проверки
+            localStorage.setItem('testImage', e.target.result);
+            console.log('Изображение сохранено в localStorage');
+        };
+        
+        reader.onerror = function(e) {
+            console.error('Ошибка FileReader:', e);
+            alert('Ошибка при чтении файла: ' + e);
+        };
+        
+        reader.readAsDataURL(file);
+        console.log('Начато чтение файла...');
+    };
+    
+    input.click();
+}
+
+// Проверка поддержки FileReader
+function checkFileReaderSupport() {
+    if (typeof FileReader === 'undefined') {
+        alert('Ваш браузер не поддерживает загрузку файлов. Пожалуйста, используйте современный браузер.');
+        return false;
+    }
+    return true;
+}
+
+// Глобальная обработка ошибок FileReader
+function setupFileReader(file, successCallback, errorCallback) {
+    if (!checkFileReaderSupport()) return null;
+    
+    const reader = new FileReader();
+    reader.onload = successCallback;
+    reader.onerror = function(e) {
+        console.error('Ошибка FileReader:', e);
+        if (errorCallback) {
+            errorCallback(e);
+        } else {
+            alert('Ошибка при чтении файла. Попробуйте другой файл.');
+        }
+    };
+    reader.onabort = function() {
+        console.log('Чтение файла отменено');
+    };
+    
+    return reader;
+}
+
+// Обработка формы новостей
+document.addEventListener('DOMContentLoaded', function() {
+    const newsForm = document.getElementById('newsForm');
+    if (newsForm) {
+        newsForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('newsTitle').value;
+            const content = document.getElementById('newsContent').value;
+            const excerpt = document.getElementById('newsExcerpt').value;
+            
+            if (title && content) {
+                if (editingNewsIndex !== null) {
+                    newsItems[editingNewsIndex] = {
+                        ...newsItems[editingNewsIndex],
+                        title,
+                        content,
+                        excerpt: excerpt || content.substring(0, 100) + '...',
+                        updatedAt: new Date().toISOString()
+                    };
+                    
+                    alert('Новость успешно обновлена!');
+                    editingNewsIndex = null;
+                    const submitBtn = document.querySelector('#newsForm button[type="submit"]');
+                    if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-plus"></i> Добавить новость';
+                } else {
+                    const newsItem = {
+                        title,
+                        content,
+                        excerpt: excerpt || content.substring(0, 100) + '...',
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    newsItems.unshift(newsItem);
+                    alert('Новость добавлена!');
+                }
+                
+                renderNews();
+                newsForm.reset();
+            }
+        });
+    }
+    
+    // Инициализация данных при загрузке
+    loadNewsFromStorage();
+    loadPricesFromStorage();
+    
+    // Проверка поддержки FileReader при загрузке страницы
+    checkFileReaderSupport();
 });

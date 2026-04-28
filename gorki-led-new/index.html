@@ -871,28 +871,33 @@
                         <i class="fas fa-hockey-sticks"></i>
                         <h2>Административная панель</h2>
                     </div>
-                    <p class="admin-subtitle">Система управления сайтом Горецкой ДЮСШ</p>
+                    <button class="modal-close" onclick="closeAdminModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
                 </div>
 
-                <form class="login-form" onsubmit="adminLogin(event)">
-                    <div class="form-group">
-                        <label for="adminUsername">Логин</label>
-                        <input type="text" id="adminUsername" required placeholder="Введите логин">
-                    </div>
-                    <div class="form-group">
-                        <label for="adminPassword">Пароль</label>
-                        <input type="password" id="adminPassword" required placeholder="Введите пароль">
-                    </div>
-                    <button type="submit" class="admin-btn login-btn">
-                        <i class="fas fa-sign-in-alt"></i>
-                        Войти
-                    </button>
-                </form>
+                <div class="login-form-section">
+                    <h3>Вход в систему</h3>
+                    <form id="loginForm" onsubmit="adminLogin(event)">
+                        <div class="form-group">
+                            <label for="adminUsername">Логин</label>
+                            <input type="text" id="adminUsername" required placeholder="Введите логин">
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPassword">Пароль</label>
+                            <input type="password" id="adminPassword" required placeholder="Введите пароль">
+                        </div>
+                        <button type="submit" class="admin-btn login-btn">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Войти
+                        </button>
+                    </form>
 
-                <div class="admin-info">
-                    <p><strong>Демо доступ:</strong></p>
-                    <p>Логин: admin</p>
-                    <p>Пароль: admin</p>
+                    <div class="admin-info">
+                        <p><strong>Демо доступ:</strong></p>
+                        <p>Логин: admin</p>
+                        <p>Пароль: admin</p>
+                    </div>
                 </div>
             </div>
 
@@ -930,10 +935,10 @@
                             <i class="fas fa-building"></i>
                         </div>
                         <h3>О нас</h3>
-                        <p>Загрузка фото о спортивной школе</p>
+                        <p>Редактирование информации о школе</p>
                     </div>
 
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="openNewsSection()">
                         <div class="feature-icon">
                             <i class="fas fa-newspaper"></i>
                         </div>
@@ -941,19 +946,82 @@
                         <p>Управление новостями и объявлениями</p>
                     </div>
 
-                    <div class="feature-card">
+                    <div class="feature-card" onclick="openPricesSection()">
                         <div class="feature-icon">
                             <i class="fas fa-dollar-sign"></i>
                         </div>
                         <h3>Цены</h3>
                         <p>Настройка стоимости услуг</p>
                     </div>
+
+                    <div class="feature-card" onclick="openContactsSection()">
+                        <div class="feature-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Контакты</h3>
+                        <p>Редактирование контактной информации</p>
+                    </div>
                 </div>
 
                 <div class="admin-actions">
+                    <button class="admin-btn" onclick="testImageUpload()">
+                        <i class="fas fa-test"></i>
+                        Тест загрузки
+                    </button>
                     <button class="admin-btn secondary" onclick="adminLogout()">
                         <i class="fas fa-sign-out-alt"></i>
                         Выйти
+                    </button>
+                    <button class="admin-btn secondary" onclick="closeAdminModal()">
+                        <i class="fas fa-times"></i>
+                        Закрыть
+                    </button>
+                </div>
+            </div>
+
+            <!-- Секция новостей -->
+            <div id="newsSection" class="admin-section" style="display: none;">
+                <div class="section-header">
+                    <h3><i class="fas fa-newspaper"></i> Управление новостями</h3>
+                    <button class="back-btn" onclick="backToAdminPanel()">
+                        <i class="fas fa-arrow-left"></i>
+                        Назад
+                    </button>
+                </div>
+
+                <div class="news-form-section">
+                    <h4>Добавить новость</h4>
+                    <form id="newsForm">
+                        <div class="form-group">
+                            <label for="newsTitle">Заголовок</label>
+                            <input type="text" id="newsTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsContent">Содержание</label>
+                            <textarea id="newsContent" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="newsExcerpt">Краткое описание</label>
+                            <input type="text" id="newsExcerpt">
+                        </div>
+                        <button type="submit" class="admin-btn">
+                            <i class="fas fa-plus"></i>
+                            Добавить новость
+                        </button>
+                    </form>
+                </div>
+
+                <div class="news-list-section">
+                    <h4>Существующие новости</h4>
+                    <div id="newsList">
+                        <!-- Новости будут добавлены динамически -->
+                    </div>
+                </div>
+
+                <div class="section-actions">
+                    <button class="admin-btn" onclick="saveNews()">
+                        <i class="fas fa-save"></i>
+                        Сохранить новости
                     </button>
                 </div>
             </div>
@@ -968,49 +1036,24 @@
                     </button>
                 </div>
 
-                <div class="current-hero-section">
-                    <div class="section-header">
-                        <h4>Текущее фоновое изображение</h4>
-                        <button class="delete-hero-btn" id="deleteHeroBtn" onclick="deleteHeroImage()" style="display: none;">
-                            <i class="fas fa-trash"></i>
-                            Удалить изображение
-                        </button>
+                <div class="hero-form-section">
+                    <h4>Настройка главного экрана</h4>
+                    <div class="form-group">
+                        <label for="heroTitle">Заголовок</label>
+                        <input type="text" id="heroTitle" placeholder="Введите заголовок главного экрана">
                     </div>
-                    <div class="current-hero-preview" id="currentHeroPreview">
-                        <div class="no-hero-image">
-                            <i class="fas fa-image"></i>
-                            <p>Фоновое изображение не установлено</p>
-                        </div>
+                    <div class="form-group">
+                        <label for="heroSubtitle">Подзаголовок</label>
+                        <input type="text" id="heroSubtitle" placeholder="Введите подзаголовок">
                     </div>
-                </div>
-
-                <div class="upload-section">
-                    <h4>Загрузить новое изображение</h4>
-                    <div class="upload-area" id="heroUploadArea">
-                        <div class="upload-content">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <h4>Перетащите изображение сюда</h4>
-                            <p>или нажмите для выбора файла</p>
-                            <input type="file" id="heroFileInput" accept="image/*" hidden>
-                            <button class="upload-btn" onclick="document.getElementById('heroFileInput').click()">
-                                <i class="fas fa-folder-open"></i>
-                                Выбрать файл
-                            </button>
-                        </div>
+                    <div class="form-group">
+                        <label for="heroBackground">Фоновое изображение</label>
+                        <input type="file" id="heroBackground" accept="image/*">
+                        <small>Выберите изображение для фона главного экрана</small>
                     </div>
-                </div>
-
-                <div class="preview-section" id="heroPreviewSection" style="display: none;">
-                    <h4>Предпросмотр нового изображения</h4>
-                    <div class="hero-preview" id="heroPreview">
-                        <!-- Предпросмотр будет добавлен динамически -->
-                    </div>
-                </div>
-
-                <div class="section-actions">
-                    <button class="admin-btn" onclick="saveHeroImage()">
+                    <button class="admin-btn" onclick="saveHeroSettings()">
                         <i class="fas fa-save"></i>
-                        Сохранить изображение
+                        Сохранить настройки
                     </button>
                 </div>
             </div>
@@ -1025,24 +1068,22 @@
                     </button>
                 </div>
 
-                <div class="upload-section">
-                    <div class="upload-area" id="uploadArea">
-                        <div class="upload-content">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <h4>Перетащите фотографии сюда</h4>
-                            <p>или нажмите для выбора файлов</p>
-                            <input type="file" id="fileInput" multiple accept="image/*" hidden>
-                            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
-                                <i class="fas fa-folder-open"></i>
-                                Выбрать файлы
-                            </button>
-                        </div>
+                <div class="gallery-form-section">
+                    <h4>Добавить фотографии в галерею</h4>
+                    <div class="form-group">
+                        <label for="galleryImages">Выберите фотографии</label>
+                        <input type="file" id="galleryImages" multiple accept="image/*">
+                        <small>Можно выбрать несколько файлов</small>
                     </div>
+                    <button class="admin-btn" onclick="addGalleryImages()">
+                        <i class="fas fa-plus"></i>
+                        Добавить фотографии
+                    </button>
                 </div>
 
-                <div class="gallery-section">
-                    <h4>Загруженные фотографии</h4>
-                    <div class="gallery-preview" id="galleryPreview">
+                <div class="gallery-list-section">
+                    <h4>Текущие фотографии</h4>
+                    <div id="galleryList">
                         <!-- Фотографии будут добавлены динамически -->
                     </div>
                 </div>
@@ -1050,68 +1091,107 @@
                 <div class="section-actions">
                     <button class="admin-btn" onclick="saveGallery()">
                         <i class="fas fa-save"></i>
-                        Сохранить изменения
+                        Сохранить галерею
                     </button>
                 </div>
             </div>
 
-            <!-- Секция о нас -->
+            <!-- Секция О нас -->
             <div id="aboutSection" class="admin-section" style="display: none;">
                 <div class="section-header">
-                    <h3><i class="fas fa-building"></i> Управление фото о нас</h3>
+                    <h3><i class="fas fa-building"></i> Управление разделом "О нас"</h3>
                     <button class="back-btn" onclick="backToAdminPanel()">
                         <i class="fas fa-arrow-left"></i>
                         Назад
                     </button>
                 </div>
 
-                <div class="current-about-section">
-                    <div class="section-header">
-                        <h4>Текущие фото о нас</h4>
-                        <button class="clear-all-btn" id="clearAllAboutBtn" onclick="clearAllAboutImages()" style="display: none;">
-                            <i class="fas fa-trash"></i>
-                            Удалить все
-                        </button>
+                <div class="about-form-section">
+                    <h4>Редактирование информации о школе</h4>
+                    <div class="form-group">
+                        <label for="aboutTitle">Заголовок раздела</label>
+                        <input type="text" id="aboutTitle" placeholder="Введите заголовок">
                     </div>
-                    <div class="about-gallery-preview" id="aboutGalleryPreview">
-                        <div class="no-about-images">
-                            <i class="fas fa-building"></i>
-                            <p>Фото о нас не загружены</p>
-                        </div>
+                    <div class="form-group">
+                        <label for="aboutDescription">Описание</label>
+                        <textarea id="aboutDescription" rows="6" placeholder="Введите описание спортивной школы"></textarea>
                     </div>
+                    <div class="form-group">
+                        <label for="aboutImages">Фотографии о школе</label>
+                        <input type="file" id="aboutImages" multiple accept="image/*">
+                        <small>Добавьте фотографии школы</small>
+                    </div>
+                    <button class="admin-btn" onclick="saveAboutInfo()">
+                        <i class="fas fa-save"></i>
+                        Сохранить информацию
+                    </button>
+                </div>
+            </div>
+
+            <!-- Секция контактов -->
+            <div id="contactsSection" class="admin-section" style="display: none;">
+                <div class="section-header">
+                    <h3><i class="fas fa-phone"></i> Управление контактами</h3>
+                    <button class="back-btn" onclick="backToAdminPanel()">
+                        <i class="fas fa-arrow-left"></i>
+                        Назад
+                    </button>
                 </div>
 
-                <div class="upload-section">
-                    <h4>Загрузить новые фото</h4>
-                    <div class="upload-area" id="aboutUploadArea">
-                        <div class="upload-content">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <h4>Перетащите фото сюда</h4>
-                            <p>или нажмите для выбора файлов (можно несколько)</p>
-                            <input type="file" id="aboutFileInput" accept="image/*" multiple hidden>
-                            <button class="upload-btn" onclick="document.getElementById('aboutFileInput').click()">
-                                <i class="fas fa-folder-open"></i>
-                                Выбрать файлы
-                            </button>
-                        </div>
+                <div class="contacts-form-section">
+                    <h4>Редактирование контактной информации</h4>
+                    <div class="form-group">
+                        <label for="contactPhone">Телефон</label>
+                        <input type="tel" id="contactPhone" placeholder="Введите номер телефона">
                     </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" placeholder="Введите email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactAddress">Адрес</label>
+                        <input type="text" id="contactAddress" placeholder="Введите адрес">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSchedule">Время работы</label>
+                        <textarea id="contactSchedule" rows="3" placeholder="Введите время работы"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMap">Ссылка на карту</label>
+                        <input type="url" id="contactMap" placeholder="Введите ссылку на Google Maps или Яндекс.Карты">
+                    </div>
+                    <button class="admin-btn" onclick="saveContactInfo()">
+                        <i class="fas fa-save"></i>
+                        Сохранить контакты
+                    </button>
+                </div>
+            </div>
+
+            <!-- Секция цен -->
+            <div id="pricesSection" class="admin-section" style="display: none;">
+                <div class="section-header">
+                    <h3><i class="fas fa-dollar-sign"></i> Управление ценами</h3>
+                    <button class="back-btn" onclick="backToAdminPanel()">
+                        <i class="fas fa-arrow-left"></i>
+                        Назад
+                    </button>
                 </div>
 
-                <div class="preview-section" id="aboutPreviewSection" style="display: none;">
-                    <h4>Предпросмотр новых фото</h4>
-                    <div class="about-preview-grid" id="aboutPreviewGrid">
-                        <!-- Предпросмотр будет добавлен динамически -->
+                <div class="prices-section">
+                    <h4>Настройка стоимости услуг</h4>
+                    <div id="pricesList">
+                        <!-- Цены будут добавлены динамически -->
                     </div>
+                    <button class="admin-btn" onclick="addPriceItem()" style="margin-top: 1rem;">
+                        <i class="fas fa-plus"></i>
+                        Добавить услугу
+                    </button>
                 </div>
 
                 <div class="section-actions">
-                    <button class="admin-btn" onclick="saveAboutImages()">
+                    <button class="admin-btn" onclick="savePrices()">
                         <i class="fas fa-save"></i>
-                        Сохранить фото
-                    </button>
-                    <button class="admin-btn secondary" onclick="clearAboutPreview()">
-                        <i class="fas fa-times"></i>
-                        Очистить предпросмотр
+                        Сохранить цены
                     </button>
                 </div>
             </div>

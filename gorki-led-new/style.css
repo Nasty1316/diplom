@@ -2946,3 +2946,205 @@ section {
         padding: 1rem !important;
     }
 }
+
+/* Стили для полной админ-панели */
+.admin-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    z-index: 9999;
+    overflow-y: auto;
+}
+
+.admin-panel .admin-container {
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(15, 23, 42, 0.18);
+    backdrop-filter: blur(6px);
+    padding: 3rem;
+    max-width: 1080px;
+    width: min(1080px, 100%);
+    margin: 2rem auto;
+    text-align: left;
+}
+
+.admin-panel .admin-header {
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-panel .admin-logo {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.admin-panel .admin-logo i {
+    font-size: 3rem;
+    color: #2563eb;
+}
+
+.admin-panel .admin-logo h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.admin-panel .admin-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.admin-panel .feature-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: left;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.admin-panel .feature-card:hover {
+    transform: translateY(-5px);
+    border-color: #93c5fd;
+    box-shadow: 0 12px 28px rgba(37, 99, 235, 0.18);
+}
+
+.admin-panel .feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 1rem;
+}
+
+.admin-panel .feature-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.admin-panel .feature-card h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.admin-panel .feature-card p {
+    color: #64748b;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.admin-panel .admin-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.admin-panel .back-btn {
+    background: #64748b;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.admin-panel .back-btn:hover {
+    background: #475569;
+}
+
+@media (max-width: 768px) {
+    .admin-panel .admin-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .admin-panel .admin-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Стили для формы входа */
+.login-form-section {
+    text-align: center;
+    padding: 2rem;
+}
+
+.login-form-section h3 {
+    color: #1e293b;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+.admin-info {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.admin-info p {
+    margin: 0.5rem 0;
+    color: #64748b;
+    font-size: 0.875rem;
+}
+
+.admin-info strong {
+    color: #374151;
+}
+
+/* Стили для перемещаемого модального окна */
+.admin-modal .admin-modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+    user-select: none;
+}
+
+.admin-modal .admin-header {
+    cursor: grab;
+    user-select: none;
+}
+
+.admin-modal .admin-header:active {
+    cursor: grabbing;
+}
+
+.admin-modal .modal-close {
+    cursor: pointer !important;
+    pointer-events: auto;
+}
+
+.admin-modal .admin-header:active .modal-close {
+    cursor: pointer !important;
+}

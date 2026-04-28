@@ -1,0 +1,212 @@
+@startuml Use Case Diagram - Vertical Layout
+
+' Настройки стиля
+skinparam actorStyle awesome
+skinparam useCase {
+    BackgroundColor #E8F4FD
+    BorderColor #2196F3
+    ArrowColor #2196F3
+    FontColor #1565C0
+}
+skinparam rectangle {
+    BackgroundColor #F1F8E9
+    BorderColor #4CAF50
+    FontColor #2E7D32
+}
+skinparam note {
+    BackgroundColor #FFF3E0
+    BorderColor #FF9800
+    FontColor #E65100
+}
+skinparam linetype ortho
+
+' Акторы системы (слева)
+actor "Администратор" as admin <<left>>
+actor "Менеджер" as manager <<left>>
+actor "Клиент" as customer <<left>>
+actor "Гость" as guest <<left>>
+
+' Границы системы
+rectangle "Система управления LED освещением" {
+    
+    ' ==================== УРОВЕНЬ 1: ДОСТУП И АУТЕНТИФИКАЦИЯ ====================
+    usecase "Войти в систему" as login
+    usecase "Зарегистрироваться" as register
+    usecase "Выйти из системы" as logout
+    
+    ' ==================== УРОВЕНЬ 2: УПРАВЛЕНИЕ ПОЛЬЗОВАТЕЛЯМИ ====================
+    usecase "Управлять пользователями" as manage_users
+    usecase "Назначать права доступа" as assign_permissions
+    usecase "Просматривать профили" as view_profiles
+    
+    ' ==================== УРОВЕНЬ 3: УПРАВЛЕНИЕ ОБОРУДОВАНИЕМ ====================
+    usecase "Добавлять LED устройства" as add_device
+    usecase "Настраивать параметры" as configure_device
+    usecase "Мониторить состояние" as monitor_device
+    usecase "Обновлять прошивку" as update_firmware
+    
+    ' ==================== УРОВЕНЬ 4: УПРАВЛЕНИЕ ПРОЕКТАМИ ====================
+    usecase "Создавать проект" as create_project
+    usecase "Редактировать проект" as edit_project
+    usecase "Копировать проект" as copy_project
+    usecase "Архивировать проект" as archive_project
+    
+    ' ==================== УРОВЕНЬ 5: КОММЕРЧЕСКИЕ ОПЕРАЦИИ ====================
+    usecase "Создавать заказ" as create_order
+    usecase "Рассчитывать стоимость" as calculate_price
+    usecase "Генерировать счет" as generate_invoice
+    usecase "Отслеживать оплату" as track_payment
+    
+    ' ==================== УРОВЕНЬ 6: ОТЧЕТНОСТЬ И АНАЛИТИКА ====================
+    usecase "Создавать отчеты" as create_report
+    usecase "Анализировать данные" as analyze_data
+    usecase "Экспортировать данные" as export_data
+    
+    ' ==================== УРОВЕНЬ 7: КАТАЛОГ И ПОИСК ====================
+    usecase "Просматривать каталог" as browse_catalog
+    usecase "Искать продукты" as search_products
+    usecase "Сравнивать продукты" as compare_products
+    usecase "Просматривать документацию" as view_docs
+}
+
+' Вертикальная иерархия связей
+login -up- register
+register -up- logout
+
+logout -down- manage_users
+manage_users -up- assign_permissions
+assign_permissions -up- view_profiles
+
+view_profiles -down- add_device
+add_device -up- configure_device
+configure_device -up- monitor_device
+monitor_device -up- update_firmware
+
+update_firmware -down- create_project
+create_project -up- edit_project
+edit_project -up- copy_project
+copy_project -up- archive_project
+
+archive_project -down- create_order
+create_order -up- calculate_price
+calculate_price -up- generate_invoice
+generate_invoice -up- track_payment
+
+track_payment -down- create_report
+create_report -up- analyze_data
+analyze_data -up- export_data
+
+export_data -down- browse_catalog
+browse_catalog -up- search_products
+search_products -up- compare_products
+compare_products -up- view_docs
+
+' Связи акторов с функциями
+admin --> login
+admin --> manage_users
+admin --> assign_permissions
+admin --> add_device
+admin --> configure_device
+admin --> monitor_device
+admin --> update_firmware
+admin --> create_project
+admin --> edit_project
+admin --> copy_project
+admin --> archive_project
+admin --> create_order
+admin --> calculate_price
+admin --> generate_invoice
+admin --> track_payment
+admin --> create_report
+admin --> analyze_data
+admin --> export_data
+admin --> browse_catalog
+admin --> search_products
+admin --> compare_products
+admin --> view_docs
+
+manager --> login
+manager --> add_device
+manager --> configure_device
+manager --> monitor_device
+manager --> update_firmware
+manager --> create_project
+manager --> edit_project
+manager --> copy_project
+manager --> archive_project
+manager --> create_order
+manager --> calculate_price
+manager --> generate_invoice
+manager --> track_payment
+manager --> create_report
+manager --> analyze_data
+manager --> export_data
+manager --> browse_catalog
+manager --> search_products
+manager --> compare_products
+manager --> view_docs
+
+customer --> login
+customer --> register
+customer --> logout
+customer --> create_project
+customer --> edit_project
+customer --> copy_project
+customer --> create_order
+customer --> calculate_price
+customer --> track_payment
+customer --> browse_catalog
+customer --> search_products
+customer --> compare_products
+customer --> view_docs
+
+guest --> register
+guest --> browse_catalog
+guest --> search_products
+guest --> compare_products
+guest --> view_docs
+
+' Отношения включения и расширения
+manage_users --> login : <<include>>
+create_order --> calculate_price : <<include>>
+create_report --> analyze_data : <<include>>
+edit_project --> create_project : <<extend>>
+copy_project --> create_project : <<extend>>
+
+' Описания ролей
+note left of admin
+  **Администратор**
+  • Полный доступ ко всем функциям
+  • Управление пользователями и правами
+  • Администрирование системы
+  • Полный доступ к оборудованию
+  • Все коммерческие функции
+end note
+
+note left of manager
+  **Менеджер**
+  • Управление проектами
+  • Работа с оборудованием
+  • Коммерческие операции
+  • Создание отчетов
+  • Доступ к каталогу
+end note
+
+note left of customer
+  **Клиент**
+  • Управление своими проектами
+  • Создание заказов
+  • Просмотр каталога
+  • Отслеживание заказов
+  • Доступ к документации
+end note
+
+note left of guest
+  **Гость**
+  • Регистрация в системе
+  • Просмотр каталога
+  • Поиск и сравнение
+  • Доступ к документации
+end note
+
+@enduml
